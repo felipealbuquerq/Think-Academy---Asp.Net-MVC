@@ -1,0 +1,41 @@
+﻿@model Site.Models.VMProduct
+
+@{
+    ViewBag.Title = "Novo Produto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmProduct" }))
+{
+    @Html.AntiForgeryToken()
+
+    <script type="text/javascript">
+        var product = {
+            FindProvider: '@Url.Action("FindProvider", "Product")'
+        };
+    </script>
+
+    <div class="form-horizontal">        
+        <p>Exemplo - DropDownListFor MVC - Utilizando busca através de requisição ajax usando jQuery</p>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SearchSupplier, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(x => x.SearchSupplier)
+            @Html.ValidationMessageFor(model => model.SearchSupplier, "", new { @class = "text-danger", @id = "errorSearchProvider" })
+            <button type="button" id="btnSearchSupplier">Buscar</button>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Suppliers, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(x => x.Suppliers, Model.Suppliers, "Selecione")
+            @Html.ValidationMessageFor(model => model.Suppliers, "", new { @class = "text-danger", @id = "errorProvider" })
+        </div>        
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Product/create.js")
+}
+
