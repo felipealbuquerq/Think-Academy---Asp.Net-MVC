@@ -72,7 +72,7 @@ namespace Site.Controllers
             };
 
             //Sua busca no banco, o simbolo ?? significa que se não encontrar nada irá considerar o objeto que está a frente do simbolo, ou seja, suppliers
-            return Json((suppliers).Where(prop => prop.Text.Contains(SearchProvider)).ToArray() ?? suppliers);
+            return Json((suppliers).Where(prop => prop.Text.ToUpper().Contains(SearchProvider.ToUpper())).ToArray() ?? suppliers);
         }
     }
 }
