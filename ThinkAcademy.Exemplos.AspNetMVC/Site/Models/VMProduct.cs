@@ -5,7 +5,6 @@ namespace Site.Models
 {
     public class VMProduct
     {
-        //[Remote("FindProvider", "Product", ErrorMessage = "Fornecedor não encontrado!")]
         [Display(Name = "Filtrar Fornecedor")]
         public string SearchSupplier { get; set; }
 
