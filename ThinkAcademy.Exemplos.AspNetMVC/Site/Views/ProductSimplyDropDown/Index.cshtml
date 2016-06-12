@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    Carregamento Simples e Rápido
+</h2>
+
+<p>
+    <input type="text" name="name" id="name" />
+    <button type="button" id="btnfiltrar">Filtrar</button>
+</p>
+<div>
+    @Html.DropDownList("Suppliers")
+</div>
+
+<!--Seção JAVASCRIPT-->
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnfiltrar").on('click', function () {
+                var filter = { name: $("#name").val() };
+                $.post('@Url.Action("Filter")', filter, null, 'json')
+                    .done(function (result) {
+                        $("#Suppliers").empty();
+                        $("#Suppliers").html('<option>Carregando ...</option>')
+                        var html = "";
+                        $.each(result, function (index, item) {
+                            html = html + '<option value="' + item.Id + '">' + item.Name + '</option>';
+                        });
+                        $("#Suppliers").empty();
+                        if (html != "") {
+                            $("#Suppliers").html(html);
+                        }
+                    });
+            });
+        });
+    </script>
+}
+
